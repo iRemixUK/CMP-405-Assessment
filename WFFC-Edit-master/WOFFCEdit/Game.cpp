@@ -119,6 +119,31 @@ int Game::MousePicking()
 	return selectedID;
 }
 
+void Game::AddUniqueID(int selectedID)
+{
+	bool MatchFound = false;
+
+	for (int i = 0; i < multipleSelectedIDs.size(); i++)
+	{
+		if (selectedID == multipleSelectedIDs[i])
+		{
+			MatchFound = true;
+		}
+	}
+
+	if (MatchFound == false)
+	{
+		multipleSelectedIDs.push_back(selectedID);
+	}
+}
+
+std::vector<int> Game::MultiSelect()
+{
+	AddUniqueID(MousePicking());
+
+	return multipleSelectedIDs;
+}
+
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {

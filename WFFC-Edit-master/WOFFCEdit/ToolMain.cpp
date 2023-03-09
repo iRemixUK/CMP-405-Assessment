@@ -33,7 +33,6 @@ ToolMain::~ToolMain()
 
 int ToolMain::getCurrentSelectionID()
 {
-
 	return m_selectedObject;
 }
 
@@ -296,6 +295,12 @@ void ToolMain::Tick(MSG *msg)
 		m_toolInputCommands.mouse_LB_Down = false;
 	}
 
+	if (m_toolInputCommands.multipleSelect && m_toolInputCommands.mouse_LB_Down)
+	{
+		m_d3dRenderer.MultiSelect();
+		m_toolInputCommands.mouse_LB_Down = false;
+	}
+
 	//Renderer Update Call
 	m_d3dRenderer.Tick(&m_toolInputCommands);
 }
@@ -322,7 +327,6 @@ void ToolMain::UpdateInput(MSG * msg)
 	case WM_LBUTTONDOWN:	
 		m_toolInputCommands.mouse_LB_Down = true;
 		break;
-
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
@@ -359,6 +363,13 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.rotLeft = true;
 	}
 	else m_toolInputCommands.rotLeft = false;
+
+	if (m_keyArray['M'])
+	{
+		m_toolInputCommands.multipleSelect = true;
+	}
+	else m_toolInputCommands.multipleSelect = false;
+
 
 	//WASD
 }

@@ -26,6 +26,9 @@ public:
 	// Mouse picking
 	int MousePicking();
 	RECT m_ScreenDimensions;
+	std::vector<int> multipleSelectedIDs;
+	void AddUniqueID(int selectedID);
+	std::vector<int> MultiSelect();
 
 
 	// Initialization and management
